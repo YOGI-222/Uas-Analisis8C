@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Kesehatan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-blue-50">
+    <div class="container mx-auto p-4">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold">INFORMASI KESEHATAN</h1>
+        </div>
+
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="searchInput" placeholder="Cari informasi..." class="p-2 border rounded w-1/2" onkeyup="searchInfo()">
+            <select id="filterSelect" class="p-2 border rounded" onchange="filterInfo()">
+                <option value="all">Semua</option>
+                <option value="pasien">Total kunjungan</option>
+                <option value="medis">Observasi pasien</option>
+                <option value="penyakit">Registrasi pasien</option>
+            </select>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg info-card" data-category="peralatan medis">
+                <h2 class="text-xl font-semibold">Total Kunjungan</h2>
+                <p class="text-4xl font-bold">178</p>
+            </div>
+            <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg info-card" data-category="medis">
+                <h2 class="text-xl font-semibold">Observasi pasien</h2>
+                <p class="text-4xl font-bold">89</p>
+            </div>
+            <div class="bg-red-500 text-white p-6 rounded-lg shadow-lg info-card" data-category="penyakit">
+                <h2 class="text-xl font-semibold">Registrasi Pasien</h2>
+                <p class="text-4xl font-bold">89</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Survey Kepuasaan Pasien Untuk Setiap Bagian layanan</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg flex justify-center">
+                <h2 class="text-xl font-semibold mb-4">Statistik Penyakit</h2>
+                <canvas id="pieChart" style="max-width: 400px; max-height: 400px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchInfo() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let cards = document.querySelectorAll(".info-card");
+            
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function filterInfo() {
+            let filter = document.getElementById("filterSelect").value;
+            let cards = document.querySelectorAll(".info-card");
+            
+            cards.forEach(card => {
+                if (filter === "all" || card.getAttribute("data-category") === filter) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Customer sevice', 'Dokter', 'Perawat'],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [45, 35, 20],
+                    backgroundColor: ['blue', 'green', 'red']
+                }]
+            },
+        });
+
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Kanker', 'Diabetes', 'Sroke'],
+                datasets: [{
+                    data: [35, 45, 20],
+                    backgroundColor: ['blue', 'green', 'red']
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+            }
+        });
+    </script>
+</body>
+</html>
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-pink-100 font-roboto">
+    <div class="max-w-3xl mx-auto p-4">
+        <div class="text-center mb-8">
+            <head>
+                <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>POLA HIDUP SEHAT</title>
+                        <script src="https://cdn.tailwindcss.com"></script>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                    </head>
+                    <body class="bg-blue-50">
+                        <div class="max-w-3xl mx-auto py-10">
+                            <h1 class="text-3xl font-bold text-center text-gray-900 mb-8">
+                                <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                                POLA HIDUP SEHAT
+                                <span class="text-yellow-500"><i class="fas fa-star"></i></span>
+                            </h1>
+                            <div class="space-y-6">
+                                <div class="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-utensils text-green-500 text-2xl mr-2"></i>
+                                        <h2 class="text-xl font-semibold text-green-600">Menjaga Pola Makan</h2>
+                                    </div>
+                                    <p class="text-gray-700">Menjaga pola makan seimbang, rutin berolahraga, dan istirahat cukup akan meningkatkan kualitas hidup.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-bed text-red-500 text-2xl mr-2"></i>
+                                        <h2 class="text-xl font-semibold text-green-600">Istirahat Yang Cukup</h2>
+                                    </div>
+                                    <p class="text-gray-700">Menjaga kesehatan mental sama pentingnya dengan kesehatan fisik. Relaksasi dan manajemen stres dapat meningkatkan kesejahteraan.</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div class="flex items-center mb-2">
+                                        <i class="fas fa-shower text-orange-500 text-2xl mr-2"></i>
+                                        <h2 class="text-xl font-semibold text-green-600">Menjaga Kebersihan Diri dan Lingkungan</h2>
+                                    </div>
+                                    <p class="text-gray-700">Olahraga teratur membantu memperkuat jantung, meningkatkan daya tahan tubuh, dan menjaga berat badan ideal.</p>
+                                </div>
+                    </html>
+                <!-- Team Section -->
+                <h1 class="text-2xl font-bold mb-6">Anggota Kelompok</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
+                    <!-- Team Member 1 -->
+                    <div class="bg-white shadow-md rounded-lg p-4 flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                        <img alt="Profile picture of NISA" class="rounded-full mb-2" height="30" src="https://placehold.co/30x30" width="30"/>
+                        <h3 class="text-gray-500">NISA</h3>
+                        <h2 class="text-xl font-bold">Nur Anisa Pakaya</h2>
+                        <p class="text-gray-600">13462.22.051</p>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="bg-white shadow-md rounded-lg p-4 flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                        <img alt="Profile picture of TIWI" class="rounded-full mb-2" height="30" src="https://placehold.co/30x30" width="30"/>
+                        <h3 class="text-gray-500">TIWI</h3>
+                        <h2 class="text-xl font-bold">Pratiwi Putri Mamula</h2>
+                        <p class="text-gray-600">113462.22.058</p>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="bg-white shadow-md rounded-lg p-4 flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                        <img alt="Profile picture of Laila" class="rounded-full mb-2" height="30" src="https://placehold.co/30x30" width="30"/>
+                        <h3 class="text-gray-500">ZIA</h3>
+                        <h2 class="text-xl font-bold">Trilaila kadir</h2>
+                        <p class="text-gray-600">13462.22.085</p>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="bg-white shadow-md rounded-lg p-4 flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                        <img alt="Profile picture of Laila" class="rounded-full mb-2" height="30" src="https://placehold.co/30x30" width="30"/>
+                        <h3 class="text-gray-500">NIA</h3>
+                        <h2 class="text-xl font-bold">NIA KARTIKA RAMBING</h2>
+                        <p class="text-gray-600">13462.22.049</p>
+                </div>
+            </body>
+            </html>
